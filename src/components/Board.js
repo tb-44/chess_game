@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import "../index.css";
 import Square from "./Square";
 
-class Board extends Component {
+export default class Board extends React.Component {
   renderSquare(i, squareShade) {
     return (
       <Square
@@ -34,5 +34,3 @@ class Board extends Component {
 function isEven(num) {
   return num % 2 === 0;
 }
-
-export default Board;

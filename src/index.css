@@ -1,7 +1,7 @@
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
+  font: 14px "Open Sans", Futura, sans-serif;
   margin: 20px;
-  background-color: #ECECEA;
+  background-color: rgba(201, 237, 243, 0.685);
 }
 
 ol,
@@ -39,7 +39,7 @@ ul {
 }
 
 .kbd-navigation .square:focus {
-  background: #ddd;
+  background: rgb(207, 149, 24);
 }
 
 .game {
@@ -59,12 +59,15 @@ ul {
   min-height: 50px;
 }
 
+
+
+/*Board color scheme Wheat from http://omgchess.blogspot.com/2015/09/chess-board-color-schemes.html*/
 .dark-square {
-  background-color: RGB(187, 190, 100);
+  background-color: rgba(143, 96, 8, 0.89);
 }
 
 .light-square {
-  background-color: RGB(234, 240, 206);
+  background-color: rgba(162, 228, 240, 0.842);
 }
 
 #player-turn-box {

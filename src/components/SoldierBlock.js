@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../index.css";
 import Square from "./Square";
 
-class SoldierBlock extends Component {
+class FallenSoldierBlock extends Component {
   renderSquare(square) {
     return <Square piece={square} style={square.style} />;
   }
@@ -11,14 +11,18 @@ class SoldierBlock extends Component {
     return (
       <div>
         <div className="board-row">
-          {this.props.whitePieces.map((ws) => this.renderSquare(ws))}
+          {this.props.whiteFallenSoldiers.map((ws, index) =>
+            this.renderSquare(ws, index)
+          )}
         </div>
         <div className="board-row">
-          {this.props.blackPieces.map((bs, index) => this.renderSquare(bs))}
+          {this.props.blackFallenSoldiers.map((bs, index) =>
+            this.renderSquare(bs, index)
+          )}
         </div>
       </div>
     );
   }
 }
 
-export default SoldierBlock;
+export default FallenSoldierBlock;

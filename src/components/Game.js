@@ -1,19 +1,19 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { Component } from "react";
+import React from "react";
 import "../index.css";
 import Board from "./Board";
-import SoldierBlock from "./SoldierBlock";
+import FallenSoldierBlock from "./SoldierBlock";
 import initialiseChessBoard from "../gameboard/Gameboard";
 
-class Game extends Component {
+export default class Game extends React.Component {
   constructor() {
     super();
     this.state = {
       squares: initialiseChessBoard(),
-      whitePieces: [],
+      whiteFallenSoldiers: [],
       blackFallenSoldiers: [],
       player: 1,
-      selection: -1,
+      sourceSelection: -1,
       status: "",
       turn: "white",
     };
@@ -22,7 +22,7 @@ class Game extends Component {
   handleClick(i) {
     const squares = this.state.squares.slice();
 
-    if (this.state.selection === -1) {
+    if (this.state.sourceSelection === -1) {
       if (!squares[i] || squares[i].player !== this.state.player) {
         this.setState({
           status:
@@ -37,39 +37,40 @@ class Game extends Component {
           backgroundColor: "RGB(111,143,114)",
         };
         this.setState({
-          status: "Choose destination for the selected piece",
+          status: "Choose proper destination for the selected chess piece",
           sourceSelection: i,
         });
       }
-    } else if (this.state.selection > -1) {
+    } else if (this.state.sourceSelection > -1) {
       squares[this.state.sourceSelection].style = {
         ...squares[this.state.sourceSelection].style,
         backgroundColor: "",
       };
       if (squares[i] && squares[i].player === this.state.player) {
         this.setState({
-          status: "Wrong selection. Choose valid source and destination again.",
-          selection: -1,
+          status:
+            "Wrong selection. Choose valid destination for the chess piece selected.",
+          sourceSelection: -1,
         });
       } else {
         const squares = this.state.squares.slice();
-        const whitePieces = this.state.whitePieces.slice();
-        const blackPieces = this.state.blackPieces.slice();
+        const whiteFallenSoldiers = this.state.whiteFallenSoldiers.slice();
+        const blackFallenSoldiers = this.state.blackFallenSoldiers.slice();
         const isDestEnemyOccupied = squares[i] ? true : false;
         const isMovePossible = squares[
           this.state.sourceSelection
-        ].isMovePossible(this.state.selection, i, isDestEnemyOccupied);
+        ].isMovePossible(this.state.sourceSelection, i, isDestEnemyOccupied);
         const srcToDestPath = squares[
           this.state.sourceSelection
-        ].getSrcToDestPath(this.state.selection, i);
+        ].getSrcToDestPath(this.state.sourceSelection, i);
         const isMoveLegal = this.isMoveLegal(srcToDestPath);
 
         if (isMovePossible && isMoveLegal) {
           if (squares[i] !== null) {
             if (squares[i].player === 1) {
-              whitePieces.push(squares[i]);
+              whiteFallenSoldiers.push(squares[i]);
             } else {
-              blackPieces.push(squares[i]);
+              blackFallenSoldiers.push(squares[i]);
             }
           }
           squares[i] = squares[this.state.sourceSelection];
@@ -77,10 +78,10 @@ class Game extends Component {
           let player = this.state.player === 1 ? 2 : 1;
           let turn = this.state.turn === "white" ? "black" : "white";
           this.setState({
-            selection: -1,
+            sourceSelection: -1,
             squares: squares,
-            whitePieces: whitePieces,
-            blackPieces: blackPieces,
+            whiteFallenSoldiers: whiteFallenSoldiers,
+            blackFallenSoldiers: blackFallenSoldiers,
             player: player,
             status: "",
             turn: turn,
@@ -88,8 +89,8 @@ class Game extends Component {
         } else {
           this.setState({
             status:
-              "Wrong selection. Choose valid source and destination again.",
-            selection: -1,
+              "Wrong selection. Choose valid destination for the chess piece selected.",
+            sourceSelection: -1,
           });
         }
       }
@@ -126,9 +127,9 @@ class Game extends Component {
 
             <div className="fallen-soldier-block">
               {
-                <SoldierBlock
-                  whitePieces={this.state.whitePieces}
-                  blackPieces={this.state.blackPieces}
+                <FallenSoldierBlock
+                  whiteFallenSoldiers={this.state.whiteFallenSoldiers}
+                  blackFallenSoldiers={this.state.blackFallenSoldiers}
                 />
               }
             </div>
@@ -138,5 +139,3 @@ class Game extends Component {
     );
   }
 }
-
-export default Game;
