@@ -3,7 +3,7 @@ import "../index.css";
 import Square from "./Square";
 
 class SoldierBlock extends Component {
-  renderSquare(square, i, squareShade) {
+  renderSquare(square) {
     return <Square piece={square} style={square.style} />;
   }
 
@@ -11,14 +11,10 @@ class SoldierBlock extends Component {
     return (
       <div>
         <div className="board-row">
-          {this.props.whitePieces.map((ws, index) =>
-            this.renderSquare(ws, index)
-          )}
+          {this.props.whitePieces.map((ws) => this.renderSquare(ws))}
         </div>
         <div className="board-row">
-          {this.props.blackPieces.map((bs, index) =>
-            this.renderSquare(bs, index)
-          )}
+          {this.props.blackPieces.map((bs, index) => this.renderSquare(bs))}
         </div>
       </div>
     );

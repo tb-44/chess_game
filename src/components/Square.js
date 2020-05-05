@@ -1,7 +1,7 @@
 import React from "react";
 import "../index.css";
 
-const Square = (props) => {
+export default function Square(props) {
   return (
     <button
       className={"square " + props.shade}
@@ -9,6 +9,4 @@ const Square = (props) => {
       style={props.style}
     ></button>
   );
-};
-
-export default Square;
+}
